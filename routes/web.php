@@ -13,6 +13,18 @@
 
 Auth::routes();
 
+Route::namespace('User')->middleware('auth')->group(function(){
+	Route::prefix('profile')->group(function(){
+		Route::get('create', 'ProfileController@create')->name('profile.create');
+		Route::post('store', 'ProfileController@store')->name('profile.store');
+
+		Route::get('{profile}/show', 'ProfileController@show')->name('profile.show');
+
+		Route::get('{profile}/edit', 'ProfileController@edit')->name('profile.edit');
+		Route::put('{profile}', 'ProfileController@update')->name('profile.update');
+	});
+});
+
 /**
 *	Route block for Librarian
 */
